@@ -1,6 +1,5 @@
 import pandas as pd
 import matplotlib.pyplot as plt #import libraries
-import numpy as np
 from statsmodels.tsa.seasonal import seasonal_decompose
 
 edataps=pd.read_csv('ps_data.csv',parse_dates=True,infer_datetime_format=True,index_col='ELEXM_utc')#read pumped storage data
@@ -20,14 +19,14 @@ csumplot=pd.DataFrame(daycsum.POWER_ELEXM_PS_MW,daycsum.index)#create dataframe 
 
 csumplot=seasonal_decompose(csumplot,model='additive',period=48)#Seasonal decomposition with an additive model
 csumplot.observed.plot(ax=ax1) #plot each result from decomposition
-ax1.set(xlabel='Time (half-hours)',ylabel='cumulative power generated (GW)',title='Daily resetting cumulative power generated from'+' '+ begin_day[:7]+' '+'to'+' '+final_day[:7])
+ax1.set(xlabel='Time (half-hours)',ylabel='Cumulative power generated (GW)',title='Daily resetting cumulative power generated from'+' '+ begin_day[:10]+' '+'to'+' '+final_day[:10])
 csumplot.trend.plot(ax=ax2)
 ax2.set(xlabel='Time (half-hours)',ylabel='Trend of daily accumulation (GW)')
 csumplot.seasonal.plot(ax=ax3)
 ax3.set(xlabel='Time (half-hours)',ylabel='Seasonality of daily accumulation (GW)')
 csumplot.resid.plot(ax=ax4)
 ax4.set(xlabel='Time (half-hours)',ylabel='Residual of daily accumulation (GW)')
-
+plt.show()
 
 
 
