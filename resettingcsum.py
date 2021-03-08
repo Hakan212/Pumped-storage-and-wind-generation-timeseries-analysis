@@ -14,18 +14,18 @@ edataps=edataps[begin_day:final_day] #slice dataset for desired range
 daycsum=edataps.groupby(edataps.index.date)['POWER_ELEXM_PS_MW'].cumsum()
 daycsum=daycsum.to_frame()#convert new series into dataframe
 
-fig,(ax1,ax2,ax3,ax4)=plt.subplots(4,1,figsize=(10,20))#start plotting data
+fig,(ax1,ax2,ax3)=plt.subplots(3,1,figsize=(10,20))#start plotting data
 csumplot=pd.DataFrame(daycsum.POWER_ELEXM_PS_MW,daycsum.index)#create dataframe for plotting
 
 csumplot=seasonal_decompose(csumplot,model='additive',period=48)#Seasonal decomposition with an additive model
-csumplot.observed.plot(ax=ax1) #plot each result from decomposition
-ax1.set(xlabel='Time (half-hours)',ylabel='Cumulative power generated (GW)',title='Daily resetting cumulative power generated from'+' '+ begin_day[:10]+' '+'to'+' '+final_day[:10])
-csumplot.trend.plot(ax=ax2)
-ax2.set(xlabel='Time (half-hours)',ylabel='Trend of daily accumulation (GW)')
-csumplot.seasonal.plot(ax=ax3)
-ax3.set(xlabel='Time (half-hours)',ylabel='Seasonality of daily accumulation (GW)')
-csumplot.resid.plot(ax=ax4)
-ax4.set(xlabel='Time (half-hours)',ylabel='Residual of daily accumulation (GW)')
+csumplot.observed.plot(ax=ax1) #plot observed data
+ax1.set(xlabel='Time (half-hours)',ylabel='Cumulative power generated (MW)',title='Daily resetting cumulative power generated from'+' '+ begin_day[:10]+' '+'to'+' '+final_day[:10])
+csumplot.trend.plot(ax=ax2)#plot trend of data
+ax2.set(xlabel='Time (half-hours)',ylabel='Trend of daily accumulation (MW)')
+#csumplot.seasonal.plot(ax=ax3)#plot seasonality of data
+#ax3.set(xlabel='Time (half-hours)',ylabel='Seasonality of daily accumulation (MW)')
+csumplot.resid.plot(ax=ax3)#plot residuals of data
+ax3.set(xlabel='Time (half-hours)',ylabel='Residual of daily accumulation (MW)')
 plt.show()
 
 
