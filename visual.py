@@ -11,15 +11,15 @@ begin_day='2012-06-29 00:00:00' #2012-06-29 is the earliest date useable
 final_day='2020-10-02 00:00:00' #2020-10-02 is the latest date useable
 edata=edata[begin_day:final_day] #slice datasets
 edataps=edataps[begin_day:final_day]
-fig,axes=plt.subplots(nrows=4,ncols=1,figsize=(7,20))#plot
-axes[0].plot_date(edata.index,edata.POWER_ESPENI_MW,'b-',label='ESPENI',)#plot 'Elexon sum plus embedded and net imports'
+fig,axes=plt.subplots(nrows=4,ncols=1,figsize=(7,15))#plot
+axes[0].plot_date(edata.index,edata.POWER_ESPENI_MW,'b-',label='Overall electrical demand (a)',linewidth=0.5)#plot 'Elexon sum plus embedded and net imports'
+axes[0].set(ylim=(0,60000))
+axes[1].plot_date(edata.index,edata.POWER_ELEXM_WIND_MW,'y-',label='Wind generation (b)',linewidth=0.5)#plot wind gen
 
-axes[1].plot_date(edata.index,edata.POWER_ELEXM_WIND_MW,'y-',label='Wind generation')#plot wind gen
+axes[2].plot_date(edata.index,edata.POWER_NGEM_EMBEDDED_WIND_GENERATION_MW,'g-',label='Embedded wind (c)',linewidth=0.5)#plot embedded wind
 
-axes[2].plot_date(edata.index,edata.POWER_NGEM_EMBEDDED_WIND_GENERATION_MW,'g-',label='Embedded wind')#plot embedded wind
-
-axes[3].plot_date(edataps.index,edataps.POWER_ELEXM_PS_MW,'c-',label='Pumped storage generation')#plot pumped storage
-
+axes[3].plot_date(edataps.index,edataps.POWER_ELEXM_PS_MW,'c-',label='Pumped storage generation (d)',linewidth=0.5)#plot pumped storage
+axes[3].set(ylim=(-4000,4000))
 for i in range(4):#labels for graph
     axes[i].legend(fontsize=14)
     axes[i].set_xlabel('Time (half-hours)')
