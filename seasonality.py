@@ -7,7 +7,7 @@ edata=pd.read_csv('espeni.csv',parse_dates=True,infer_datetime_format=True,index
 edataps=edataps[0:208756] #pumped storage data is a bit longer than demand data
 edataps=edataps.resample('0.5H').interpolate() #interpolate over missing values in pstorage data
 
-beginday1='2019-02-11 00:00:00' 
+beginday1='2019-02-11 00:00:00' #same week in 3 different years
 finalday1='2019-02-18 00:00:00' 
 beginday2='2016-02-08 00:00:00'
 finalday2='2016-02-15 00:00:00'
@@ -23,7 +23,7 @@ edata2=windgen[beginday2:finalday2]
 edata3=windgen[beginday3:finalday3]
 fig,(ax1,ax2,ax3,ax4,ax5,ax6)=plt.subplots(6,1,figsize=(10,20))#start plotting
 
-edataps2.index=edataps1.index
+edataps2.index=edataps1.index #plot all weeks in same index
 edataps3.index=edataps1.index
 edata2.index=edata1.index
 edata3.index=edata1.index
@@ -40,7 +40,7 @@ splot1=seasonal_decompose(splot1,model='additive',period=48)#seasonal decomposit
 splot2=seasonal_decompose(splot2,model='additive',period=48)
 splot3=seasonal_decompose(splot3,model='additive',period=48)
 
-wplot1=seasonal_decompose(wplot1,model='additive',period=48)#seasonal decomposition for wind
+wplot1=seasonal_decompose(wplot1,model='additive',period=48)#seasonal decomposition for wind generation
 wplot2=seasonal_decompose(wplot2,model='additive',period=48)
 wplot3=seasonal_decompose(wplot3,model='additive',period=48)
 
