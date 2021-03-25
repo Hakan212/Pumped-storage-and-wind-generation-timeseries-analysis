@@ -13,14 +13,14 @@ final_day='2020-10-02 23:30:00' #2020-10-02 is the latest date useable
 edataps=edataps[begin_day:final_day] #slice dataset for desired range
 edata=edata[begin_day:final_day]
 windgen=edata.POWER_ELEXM_WIND_MW+edata.POWER_NGEM_EMBEDDED_WIND_GENERATION_MW
-daymin=edataps.POWER_ELEXM_PS_MW.resample('D').min()#resample the dataset to take min of each
+daymin=edataps.POWER_ELEXM_PS_MW.resample('D').min()#resample the dataset to take min of pumped storage
 daymin=daymin.to_frame()
-daymax=edataps.POWER_ELEXM_PS_MW.resample('D').max()#resample the dataset to take the max of each day
+daymax=edataps.POWER_ELEXM_PS_MW.resample('D').max()#resample the dataset to take the max of pumped storage
 daymax=daymax.to_frame()
 
-maxwind=windgen.resample('D').max()
+maxwind=windgen.resample('D').max() #resample the dataset to take the max of wind generation
 maxwind=maxwind.to_frame()
-minwind=windgen.resample('D').min()
+minwind=windgen.resample('D').min() #resample the dataset to take the min of wind generation
 minwind=minwind.to_frame()
 fig,(ax1,ax2,ax3,ax4,ax5)=plt.subplots(5,2,figsize=(13,18))
 
@@ -28,13 +28,13 @@ maxplot=pd.DataFrame(daymax.POWER_ELEXM_PS_MW,daymax.index)
 minplot=pd.DataFrame(daymin.POWER_ELEXM_PS_MW,daymin.index)
 
 maxplot=seasonal_decompose(maxplot,model='additive',period=7*4*12)#seasonal decomposition
-minplot=seasonal_decompose(minplot,model='additive',period=7*4*12)#seasonal decomposition
+minplot=seasonal_decompose(minplot,model='additive',period=7*4*12)
 maxwind=seasonal_decompose(maxwind,model='additive',period=7*4*12)
 minwind=seasonal_decompose(minwind,model='additive',period=7*4*12)
 
-diffwind=maxwind.trend-minwind.trend
+diffwind=maxwind.trend-minwind.trend #plot difference in trends
 diffplot=maxplot.trend-minplot.trend
-maxplot.observed.plot(ax=ax1[0],label='Maximum pumped storage generation (a)')
+maxplot.observed.plot(ax=ax1[0],label='Maximum pumped storage generation (a)') #plot seasonal decompositions with labels
 maxplot.trend.plot(ax=ax2[0],label='Trend of maximum pumped storage (b)')
 maxplot.seasonal.plot(ax=ax3[0],label='Seasonality of maximum pumped storage (c)',ylim=(-600,400))
 maxplot.resid.plot(ax=ax5[0],label='Residuals of maximum pumped storage (e)')
