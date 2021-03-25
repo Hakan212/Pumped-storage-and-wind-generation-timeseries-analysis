@@ -1,9 +1,6 @@
 import pandas as pd
 import matplotlib.pyplot as plt #import libraries
 from statsmodels.tsa.seasonal import seasonal_decompose
-import matplotlib.dates as mdates
-month_day_fmt = mdates.DateFormatter('%b %d') # "Locale's abbreviated month name. + day of the month"
-
 
 edataps=pd.read_csv('ps_data.csv',parse_dates=True,infer_datetime_format=True,index_col='ELEXM_utc')#read pumped storage
 edata=pd.read_csv('espeni.csv',parse_dates=True,infer_datetime_format=True,index_col='ELEXM_utc')
