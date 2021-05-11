@@ -11,7 +11,7 @@ begin_day='2012-06-29 00:00:00' #2012-06-29 is the earliest date useable
 final_day='2020-10-02 00:00:00' #2020-10-02 is the latest date useable
 edata=edata[begin_day:final_day] #slice datasets
 edataps=edataps[begin_day:final_day]
-fig,axes=plt.subplots(nrows=4,ncols=1,figsize=(7,15))#plot
+fig,axes=plt.subplots(nrows=4,ncols=1,figsize=(7,15))#plot data
 axes[0].plot_date(edata.index,edata.POWER_ESPENI_MW,'b-',label='Overall electrical demand (a)',linewidth=0.5)#plot 'Elexon sum plus embedded and net imports'
 axes[0].set(ylim=(0,60000))
 axes[1].plot_date(edata.index,edata.POWER_ELEXM_WIND_MW,'y-',label='Wind generation (b)',linewidth=0.5)#plot wind gen
