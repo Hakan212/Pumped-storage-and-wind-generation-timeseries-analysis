@@ -33,8 +33,8 @@ maxwind=seasonal_decompose(maxwind,model='additive',period=7*4*12)
 minwind=seasonal_decompose(minwind,model='additive',period=7*4*12)
 
 diffwind=maxwind.trend-minwind.trend #plot difference in trends
-diffplot=maxplot.trend-minplot.trend
-maxplot.observed.plot(ax=ax1[0],label='Maximum pumped storage generation (a)') #plot seasonal decompositions with labels
+
+maxplot.observed.plot(ax=ax1[0],label='Maximum pumped storage generation (a)') #plot seasonal decompositions maximum and minimum for pumped storage and wind generation
 maxplot.trend.plot(ax=ax2[0],label='Trend of maximum pumped storage (b)')
 maxplot.seasonal.plot(ax=ax3[0],label='Seasonality of maximum pumped storage (c)',ylim=(-600,400))
 maxplot.resid.plot(ax=ax5[0],label='Residuals of maximum pumped storage (e)')
@@ -54,23 +54,21 @@ minwind.trend.plot(ax=ax2[1],label='Trend of minimum wind generation')
 minwind.seasonal.plot(ax=ax4[1],color='orange',label='Seasonality of minimum wind generation (d)',ylim=(-3000,3000))
 minwind.resid.plot(ax=ax5[1],label='Residuals of minimum wind generation',alpha=0.5)
 diffwind.plot(ax=ax2[1],label='Trend of difference in wind generation',alpha=0.8)
-diffplot.plot(ax=ax2[0],label='Trend of difference in pumped storage',alpha=0.5)
-for i in range(2):
+
+for i in range(2): #set legends for all figures
     ax1[i].legend()
     ax2[i].legend() 
     ax3[i].legend()
     ax4[i].legend()
     ax5[i].legend()
 
-ax1[0].set(xlabel='Time (daily)',ylabel='Pumped storage power generated (MW)')
-ax2[0].set(xlabel='Time (daily)',ylabel='Trend of generation (MW)')
-ax3[0].set(xlabel='Time (daily)',ylabel='Seasonality of generation (MW)')
-ax4[0].set(xlabel='Time (daily)',ylabel='Seasonality of generation (MW)')
-ax5[0].set(xlabel='Time (daily)',ylabel='Residual of generation (MW)')
-
+ax1[0].set(xlabel='Time (daily)',ylabel='Pumped storage power generated (MW)')  #set axis labels for all figures
 ax1[1].set(xlabel='Time (daily)',ylabel='Wind power generated (MW)')
-ax2[1].set(xlabel='Time (daily)',ylabel='Trend of generation (MW)')
-ax3[1].set(xlabel='Time (daily)',ylabel='Seasonality of generation (MW)')
-ax4[1].set(xlabel='Time (daily)',ylabel='Seasonality of generation (MW)')
-ax5[1].set(xlabel='Time (daily)',ylabel='Residual of generation (MW)')
+
+for i in range(2):
+    ax2[i].set(xlabel='Time (daily)',ylabel='Trend of generation (MW)')
+    ax3[i].set(xlabel='Time (daily)',ylabel='Seasonality of generation (MW)')
+    ax4[i].set(xlabel='Time (daily)',ylabel='Seasonality of generation (MW)')
+    ax5[i].set(xlabel='Time (daily)',ylabel='Residual of generation (MW)')
+    
 plt.show()
